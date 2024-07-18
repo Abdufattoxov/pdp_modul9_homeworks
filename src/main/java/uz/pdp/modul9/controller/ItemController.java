@@ -1,6 +1,8 @@
 package uz.pdp.modul9.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -10,27 +12,28 @@ import uz.pdp.modul9.service.ItemService;
 
 import java.util.List;
 
-@Controller
-@RequiredArgsConstructor
+
+@RestController @RequestMapping(value = "/item/*")
 public class ItemController {
-    private final ItemService itemService;
-    @GetMapping("/items")
-    public ResponseEntity<List<Item>> getItems(){
-        return ResponseEntity.ok(itemService.findAll());
+
+    @RequestMapping(value = "create", method = RequestMethod.POST)
+    public ResponseEntity<Item> create(@Valid @RequestBody Item item) {
+        return new ResponseEntity<>(item, HttpStatus.CREATED);
     }
 
-    @PostMapping("/create_items")
-    public ResponseEntity<Item> create_item(@RequestBody Item item){
-        return ResponseEntity.ok(itemService.createItem(item));
+    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    public ResponseEntity<Item> update(@Valid @RequestBody Item item) {
+        return new ResponseEntity<>(item, HttpStatus.OK);
     }
 
-    @PutMapping("/edit_item/{id}")
-    public ResponseEntity<Item> edit_item(@RequestBody Item item, @PathVariable Long id){
-        return ResponseEntity.ok(itemService.updateItem(id, item));
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        return new ResponseEntity<>("Successfully Deleted - Item", HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/delete_item/{id}")
-    public void deleteItme(@PathVariable Long id){
-        itemService.deleteItem(id);
+    @RequestMapping(value = "get/{id}", method = RequestMethod.POST)
+    public ResponseEntity<Item> get(@PathVariable Long id) {
+        return new ResponseEntity<>(new Item(id,"Swagger", "Lorem Ipsum", 216.86D), HttpStatus.OK);
     }
 }
+

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uz.pdp.modul9.entity.Item;
 import uz.pdp.modul9.repostiroy.ItemRepository;
-import uz.pdp.modul9.repostiroy.UploadRepository;
 
 import java.util.List;
 
