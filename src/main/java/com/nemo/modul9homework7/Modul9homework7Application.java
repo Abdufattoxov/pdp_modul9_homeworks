@@ -7,7 +7,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import java.util.TreeSet;
 
 @SpringBootApplication
-@EnableConfigurationProperties
 public class Modul9homework7Application {
 
     public static void main(String[] args) {
